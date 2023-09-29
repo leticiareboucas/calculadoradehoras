@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Horas</title>
+</head>
+<body>
+    <h1>Calculadora de Horas</h1>
+    <label for="horaInicial">Horário Inicial: </label>
+    <input type="time" id="horaInicial">
+    <br>
+    <label for="horasAdicionar">Horas a Adicionar/Subtrair: </label>
+    <input type="number" id="horasAdicionar" min="-24" max="24">
+    <br>
+    <label for="minutosAdicionar">Minutos a Adicionar/Subtrair: </label>
+    <input type="number" id="minutosAdicionar" min="-59" max="59">
+    <br>
+    <button onclick="calcularHoras()">Calcular</button>
+    <br>
+    <h2>Horário Resultante: <span id="horarioResultado"></span></h2>
+
+    <script>
+        function calcularHoras() {
+            const horaInicial = document.getElementById("horaInicial").value;
+            const horasAdicionar = parseInt(document.getElementById("horasAdicionar").value, 10) || 0;
+            const minutosAdicionar = parseInt(document.getElementById("minutosAdicionar").value, 10) || 0;
+
+            if (horaInicial === "") {
+                alert("Por favor, insira um horário inicial.");
+                return;
+            }
+
+            const [hora, minuto] = horaInicial.split(":");
+            const data = new Date();
+            data.setHours(parseInt(hora, 10) + horasAdicionar, parseInt(minuto, 10) + minutosAdicionar);
+
+            const horarioResultado = `${data.getHours().toString().padStart(2, "0")}:${data.getMinutes().toString().padStart(2, "0")}`;
+            document.getElementById("horarioResultado").textContent = horarioResultado;
+        }
+    </script>
+</body>
+</html>
